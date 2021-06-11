@@ -1,0 +1,38 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.ball {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  height: 50px;
+  width: 50px;
+  background-color: rgba(151, 4, 4, 0.9);
+  border-radius: 50%;
+}
+
+.container {
+  margin: 80px;
+  height: 612px;
+  width: 1024px;
+  background: rgba(7, 99, 99, 0.7);
+  background: radial-gradient(
+      circle,
+      rgb(220, 248, 246, 0.7) 1%,
+      rgba(7, 99, 99, 0.5) 2%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(7, 99, 99, 0.5) 49%,
+      rgb(220, 248, 246, 0.8) 50%,
+      rgba(7, 99, 99, 0.5) 51%
+    ),
+    linear-gradient(
+      rgba(7, 99, 99, 0.5) 49%,
+      rgb(220, 248, 246, 0.8) 50%,
+      rgba(7, 99, 99, 0.5) 51%
+    );
+  box-shadow: 0px 0px 3px 13px rgb(220, 248, 246, 0.8) inset;
+}
