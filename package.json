@@ -1,12 +1,20 @@
 {
   "name": "redBall",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "author": "Polina <ekortika@gmail.com>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PinkaCourt/redBall.git"
+  },
+  "bugs": {
+    "url": "https://github.com/PinkaCourt/redBall/issues"
+  },
+  "homepage": "https://github.com/PinkaCourt/redBall#readme",
+  "description": ""
 }
