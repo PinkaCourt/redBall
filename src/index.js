@@ -1,10 +1,3 @@
-/*
-const render = () => {
-  requestAnimationFrame(render);
-  const { top } = ball.getBoundingClientRect();
-  ball.style.top = top + 10 + "px";
-};*/
-
 const container = document.createElement("div");
 container.classList.add("container");
 
@@ -25,77 +18,44 @@ const {
 const containerBottom = containerTop + containerHeight;
 const containerRight = containerLeft + containerWidth;
 
-ball.onmousedown = function (event) {
-  moveAt(event.pageX, event.pageY);
+container.addEventListener(`dragover`, (event) => {
+  event.preventDefault();
+});
 
-  // передвинуть мяч под координаты курсора
-  // и сдвинуть на половину ширины/высоты для центрирования
-  function moveAt(pageX, pageY) {
-    ball.style.left = pageX - ball.offsetWidth / 2 + "px";
-    ball.style.top = pageY - ball.offsetHeight / 2 + "px";
-  }
+container.addEventListener(`drop`, (event) => {
+  ball.style.left = event.pageX + "px";
+  ball.style.top = event.pageY + "px";
 
-  ball.ondragstart = function () {
-    return false;
-  };
+  let horizontally = 0;
+  let vertically = 0;
 
-  function onMouseMove(event) {
-    moveAt(event.pageX, event.pageY);
+  setInterval(() => {
+    const { top, left, height, width } = ball.getBoundingClientRect();
+    const bottom = top + height;
+    const right = left + width;
 
-    ball.hidden = true;
-    let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
-    ball.hidden = false;
-
-    if (elemBelow === container) {
-    }
-  }
-
-  // (3) перемещать по экрану
-  document.addEventListener("mousemove", onMouseMove);
-
-  // (4) положить мяч, удалить более ненужные обработчики событий
-  ball.onmouseup = function () {
-    /*ball.hidden = true;
-    let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
-    ball.hidden = false;
-
-    if (elemBelow === container) {
-    }
-*/
-    let horizontally = 0;
-    let vertically = 0;
-
-    setInterval(() => {
-      const { top, left, height, width } = ball.getBoundingClientRect();
-      const bottom = top + height;
-      const right = left + width;
-
-      if (horizontally === 0) {
-        if (right >= containerRight) {
-          horizontally = 1;
-        }
-        ball.style.left = left + 1 + "px";
-      } else {
-        if (left <= containerLeft) {
-          horizontally = 0;
-        }
-        ball.style.left = left - 1 + "px";
+    if (horizontally === 0) {
+      if (right >= containerRight) {
+        horizontally = 1;
       }
-
-      if (vertically === 0) {
-        if (bottom >= containerBottom) {
-          vertically = 1;
-        }
-        ball.style.top = top + 1 + "px";
-      } else {
-        if (top <= containerTop) {
-          vertically = 0;
-        }
-        ball.style.top = top - 1 + "px";
+      ball.style.left = left + 1 + "px";
+    } else {
+      if (left <= containerLeft) {
+        horizontally = 0;
       }
-    }, 1000 / 96);
+      ball.style.left = left - 1 + "px";
+    }
 
-    document.removeEventListener("mousemove", onMouseMove);
-    ball.onmouseup = null;
-  };
-};
+    if (vertically === 0) {
+      if (bottom >= containerBottom) {
+        vertically = 1;
+      }
+      ball.style.top = top + 1 + "px";
+    } else {
+      if (top <= containerTop) {
+        vertically = 0;
+      }
+      ball.style.top = top - 1 + "px";
+    }
+  }, 1000 / 96);
+});
