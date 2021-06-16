@@ -8,6 +8,9 @@ ball.setAttribute("draggable", true);
 document.body.appendChild(ball);
 document.body.appendChild(container);
 
+let horizontally = 0;
+let vertically = 0;
+
 const {
   top: containerTop,
   left: containerLeft,
@@ -18,16 +21,11 @@ const {
 const containerBottom = containerTop + containerHeight;
 const containerRight = containerLeft + containerWidth;
 
-container.addEventListener(`dragover`, (event) => {
-  event.preventDefault();
-});
+const drop = (event) => {
+  container.removeEventListener("drop", drop);
 
-container.addEventListener(`drop`, (event) => {
   ball.style.left = event.pageX + "px";
   ball.style.top = event.pageY + "px";
-
-  let horizontally = 0;
-  let vertically = 0;
 
   setInterval(() => {
     const { top, left, height, width } = ball.getBoundingClientRect();
@@ -58,4 +56,12 @@ container.addEventListener(`drop`, (event) => {
       ball.style.top = top - 1 + "px";
     }
   }, 1000 / 96);
+};
+
+ball.addEventListener(`dragstart`, (event) => {});
+
+container.addEventListener(`dragover`, (event) => {
+  event.preventDefault();
 });
+
+container.addEventListener(`drop`, drop);
